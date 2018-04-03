@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.fof.biz.model.user.UserVO" alias="UserVO"></typeAlias>
+		<typeAlias type="com.fof.biz.model.board.BoardVO" alias="BoardVO"></typeAlias>
+		<typeAlias type="com.fof.biz.model.board.BoardListVO" alias="BoardListVO"></typeAlias>
+		<typeAlias type="com.fof.biz.model.board.BoardCategoryVO" alias="BoardCategoryVO"></typeAlias>
+		<typeAlias type="com.fof.biz.model.forecasting.FutureVO" alias="FutureVO"></typeAlias>
+		<typeAlias type="com.fof.biz.model.forecasting.ForecastingVO" alias="ForecastingVO"></typeAlias>
+		<typeAlias type="com.fof.biz.model.forecasting.BettingVO" alias="BettingVO"></typeAlias>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappings/user-mapping.xml"/>
+		<mapper resource="mappings/board-mapping.xml"/>
+		<mapper resource="mappings/boardcategory-mapping.xml"/>
+		<mapper resource="mappings/future-mapping.xml"/>
+		<mapper resource="mappings/forecasting-mapping.xml"/>
+		<mapper resource="mappings/betting-mapping.xml"/>
+	</mappers>
+</configuration>

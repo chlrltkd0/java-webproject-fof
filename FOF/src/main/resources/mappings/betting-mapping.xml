@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BettingDAO">
+
+	<select id="getBetting" parameterType="BettingVO" resultMap="BettingResultSet">
+	<![CDATA[
+		SELECT * FROM betting WHERE idx = #{idx}
+	]]>
+	</select>
+	
+	<insert id="insertBetting" parameterType="BettingVO">
+	<![CDATA[
+		INSERT INTO betting (future_idx, forecasting_idx, user_idx, money)
+		VALUES(#{futureIdx}, #{forecastingIdx}, #{userIdx}, #{money})
+	]]>
+	</insert>
+	
+	<update id="updateBetting" parameterType="BettingVO">.
+	<![CDATA[
+	
+	]]>
+	</update>
+
+	<delete id="deleteBetting" parameterType="BettingVO">
+	<![CDATA[
+		DELETE FROM betting WHERE idx = #{idx}
+	]]>
+	</delete>
+		
+	<resultMap type="BettingVO" id="BettingResultSet">
+		<id property="idx" column="idx"/>
+		<result property="futureIdx" column="future_idx"/>
+		<result property="forecastingIdx" column="forecasting_idx"/>
+		<result property="userIdx" column="user_idx"/>
+		<result property="money" column="money"/>
+		<result property="betDate" column="bet_date"/>
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FutureDAO">
+
+	<select id="getFuture" parameterType="FutureVO" resultMap="FutureResultSet">
+	<![CDATA[
+		SELECT * FROM future WHERE idx = #{idx}
+	]]>
+	</select>
+	
+	<select id="getFutureWithForecasting" parameterType="FutureVO" resultMap="FutureResultSet">
+	<![CDATA[
+		SELECT *,
+		 fu.idx as fu_idx,
+		 fo.idx as fo_idx 
+		 FROM future fu join forecasting fo on fu.idx = fo.future_idx 
+		WHERE fu.idx = #{idx}
+	]]>
+	</select>
+
+	<select id="getFutureList" parameterType="FutureVO" resultMap="FutureResultSet">
+	<![CDATA[
+		SELECT * FROM future;
+	]]>
+	</select>
+
+	<insert id="insertFuture" parameterType="FutureVO">
+	<![CDATA[
+		INSERT INTO future (user_idx, category_idx, event_description, answer, deposit, deadline)
+		VALUES(#{userIdx}, #{categoryIdx}, #{eventDescription}, #{answer}, #{deposit}, #{deadline})
+	]]>
+	</insert>
+	
+	<update id="updateFuture" parameterType="FutureVO">.
+	<![CDATA[
+
+	]]>
+	</update>
+	
+	<update id="updateBetClose" parameterType="FutureVO">.
+	<![CDATA[
+		UPDATE future SET bet_close=true WHERE idx = #{idx}
+	]]>
+	</update>
+	
+	<update id="updateEnd" parameterType="FutureVO">.
+	<![CDATA[
+		UPDATE future SET end=true WHERE idx = #{idx}
+	]]>
+	</update>
+	
+	<update id="updateAnswer" parameterType="FutureVO">.
+	<![CDATA[
+		UPDATE future SET answer=#{answer}
+		WHERE idx = #{idx}
+	]]>
+	</update>
+	
+	<delete id="deleteFuture" parameterType="FutureVO">
+	<![CDATA[
+		DELETE FROM future WHERE idx = #{idx}
+	]]>
+	</delete>
+	
+	<resultMap type="FutureVO" id="FutureWithForecastingResultSet">
+		<id property="idx" column="fu_idx" />
+		<result property="userIdx" column="user_idx" />
+		<result property="categoryIdx" column="category_idx" />
+		<result property="eventDescription" column="event_description" />
+		<result property="answer" column="answer" />
+		<result property="deposit" column="deposit" />
+		<result property="regDate" column="reg_date" />
+		<result property="deadline" column="deadline" />
+		<result property="betClose" column="bet_close" />
+		<result property="end" column="end" />
+		<collection property="listOfForecasting" ofType="FutureVO">
+			<id property="idx" column="fo_idx"/>
+			<result property="futureIdx" column="future_idx"/>
+			<result property="forecastingDescription" column="forecasting_description"/>
+			<result property="dividend" column="dividend"/>
+		</collection>
+	</resultMap>
+	
+		<resultMap type="FutureVO" id="FutureResultSet">
+		<id property="idx" column="idx" />
+		<result property="userIdx" column="user_idx" />
+		<result property="categoryIdx" column="category_idx" />
+		<result property="eventDescription" column="event_description" />
+		<result property="answer" column="answer" />
+		<result property="deposit" column="deposit" />
+		<result property="regDate" column="reg_date" />
+		<result property="deadline" column="deadline" />
+		<result property="betClose" column="bet_close" />
+		<result property="end" column="end" />
+	</resultMap>
+
+</mapper>

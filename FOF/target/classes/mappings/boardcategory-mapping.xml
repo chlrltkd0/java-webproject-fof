@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardCategoryDAO">
+
+	<select id="getBoardCategoryList" parameterType="BoardCategoryVO" resultMap="BoardCategoryResultSet">
+	<![CDATA[
+		SELECT * FROM boardcategory
+	]]>
+	</select>
+
+	<insert id="insertBoardCategory" parameterType="BoardCategoryVO">
+	<![CDATA[
+		INSERT INTO boardcategory (idx, parent_idx, name, seq, read_authority, write_authority, comment_authority)
+		VALUES(#{idx}, #{parentIdx}, #{name}, #{seq}, #{readAuthority}, #{writeAuthority}, #{commentAuthority})
+	]]>
+	</insert>
+
+	<delete id="deleteBoardCategory" parameterType="BoardCategoryVO">
+	<![CDATA[
+		DELETE FROM boardcategory WHERE idx = #{idx}
+	]]>
+	</delete>
+	
+	<resultMap type="BoardCategoryVO" id="BoardCategoryResultSet">
+		<result property="parentIdx" column="parentIdx" />
+		<result property="readAuthority" column="read_authority" />
+		<result property="writeAuthority" column="write_authority" />
+		<result property="commentAuthority" column="comment_authority" />
+	</resultMap>
+
+</mapper>

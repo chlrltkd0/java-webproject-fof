@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ForecastingDAO">
+
+	<select id="getForecasting" parameterType="ForecastingVO" resultMap="ForecastingResultSet">
+	<![CDATA[
+		SELECT * FROM forecasting WHERE idx = #{idx}
+	]]>
+	</select>
+	
+	<select id="getForecastingWithBetting" parameterType="ForecastingVO" resultMap="ForecastingWithBettingResultSet">
+	<![CDATA[
+		SELECT *,
+		 f.idx as f_idx,
+		 b.idx as b_idx,
+		 b.future_idx as f_idx
+		 FROM forecasting f join betting b on f.idx = b.forecasting_idx 
+		WHERE f_idx = #{idx}
+	]]>
+	</select>
+
+	<select id="getForecastingList" parameterType="ForecastingVO" resultMap="ForecastingResultSet">
+	<![CDATA[
+		SELECT * FROM forecasting;
+	]]>
+	</select>
+
+	<insert id="insertForecasting" parameterType="ForecastingVO">
+	<![CDATA[
+		INSERT INTO forecasting (future_idx, forecasting_description, dividend)
+		VALUES(#{futureIdx}, #{forecastingDescription}, #{dividend})
+	]]>
+	</insert>
+	
+	<update id="updateForecasting" parameterType="ForecastingVO">.
+	<![CDATA[
+
+	]]>
+	</update>
+
+	<delete id="deleteForecasting" parameterType="ForecastingVO">
+	<![CDATA[
+		DELETE FROM forecasting WHERE idx = #{idx}
+	]]>
+	</delete>
+	
+	<resultMap type="ForecastingVO" id="ForecastingWithBettingResultSet">
+		<id property="idx" column="f_idx"/>
+		<result property="futureIdx" column="future_idx"/>
+		<result property="forecastingDescription" column="forecasting_description"/>
+		<result property="dividend" column="dividend"/>
+		<collection property="listOfBetting" ofType="BettingVO">
+			<id property="idx" column="b_idx"/>
+			<result property="futureIdx" column="f_idx"/>
+			<result property="forecastingIdx" column="forecasting_idx"/>
+			<result property="userIdx" column="user_idx"/>
+			<result property="money" column="money"/>
+			<result property="betDate" column="bet_date"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap type="ForecastingVO" id="ForecastingResultSet">
+		<id property="idx" column="b_idx"/>
+		<result property="FutureIdx" column="future_idx"/>
+		<result property="forecastingDescription" column="forecasting_description"/>
+		<result property="dividend" column="dividend"/>
+	</resultMap>
+
+</mapper>
